@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\ConfigurationSMTP.cs" />
+    <Compile Remove="Models\SendContactEmail.cs" />
+  </ItemGroup>
 </Project>

@@ -15,3 +15,79 @@
     <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
+
+@*<script type="text/javascript">
+
+   $(document).ready(function () {
+        $("#idFormContact").on("submit", function (e) {
+            e.preventDefault();
+            //call external service
+            var url = "/Home/SendContactEmail";
+            var formdata = (window.FormData) ? new FormData(this) : null;
+            var fdata = (formdata !== null) ? formdata : $form.serialize();
+            $("#idSubmitMvt").attr("disabled", true);
+
+            $("#idNotifSuccess").hide();
+            $("#idNotifError").hide();
+            //get authorization keys.
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: fdata,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $("#idNotifSuccess").show();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log("Error");
+                    $("#idNotifError").show();
+                }
+            });
+
+        });
+    });
+
+<!--
+<form action='@Url.Action("Contact","Home")' method='post'>
+    <label for='name'>Your Name</label>
+    <input name='name' />
+    <br />
+    <label for='message'>
+        <textarea name='message'></textarea>
+        <br />
+        <input type='submit' value='Send Message' />
+</form>-->
+
+</script>*@
+
+<div class="row">
+    <h2>Contact Form</h2>
+    <form action='@Url.Action("Contact","Home")' method='post' class="col col-xs-6" id="idFormContact" >
+        <div class="form-group">
+            <label>From</label>
+            <input type="email" class="form-control" 
+            name="name" value="" placeholder="Destination Email">
+         </div>
+        <div class="form-group">
+            <label>Subject</label>
+            <input type="text" class="form-control" 
+            value="Test subject" 
+            name="subject" placeholder="Subject">
+        </div>
+        <div class="form-group">
+            <label>Body</label>
+            <textarea class="form-control"  
+            name="message">Test Message</textarea>
+        </div>
+        <button type="submit" 
+        class="btn btn-primary">Submit</button>
+        <br>
+        <br>
+        <div id="idNotifError" style="display:none" 
+        class="alert alert-danger">Fail to send a message</div>
+        <div id="idNotifSuccess" style="display:none" 
+        class="alert alert-success">Message is sent</div>
+    </form>
+  
+</div>
